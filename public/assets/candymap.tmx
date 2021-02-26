@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="44" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="44" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="5">
  <editorsettings>
   <export target="candymap.json" format="json"/>
  </editorsettings>
@@ -2142,4 +2142,7 @@
 36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,37,38
 </data>
  </layer>
+ <objectgroup id="2" name="Objects">
+  <object id="3" name="HeroSpwam" x="193.333" y="768" width="32" height="32"/>
+ </objectgroup>
 </map>

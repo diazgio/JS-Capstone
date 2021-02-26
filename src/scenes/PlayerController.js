@@ -21,9 +21,30 @@ export default class PlayerController {
     })
         .setState('idle');
     this.sprite.setOnCollide((data) => {
-      if(this.stateMachine.isCurrentState('jump')) {
-        this.stateMachine.setState('idle');
+
+      const body = data.bodyB;
+      const gameItem = body.gameObject;
+
+      if(!gameItem) {
+        return
       }
+
+      if(gameItem instanceof Phaser.Physics.Matter.TileBody) {
+        if(this.stateMachine.isCurrentState('jump')) {
+          this.stateMachine.setState('idle');
+        }
+        return
+      }
+      const sprite = gameItem;
+      const type = sprite.getData('type');
+
+      switch(type) {
+        case 'star': {
+          sprite.destroy();
+          break
+        }
+      }
+
     });
   }
 

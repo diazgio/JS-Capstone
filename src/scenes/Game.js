@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import pinkJ from '../../public/assets/pinkProta.json';
 import pinkP from '../../public/assets/pinkProta.png';
+import star from '../../public/assets/star.png'
 import candyMap from '../../public/assets/sheetCandy.png';
 import candyMapJ from '../../public/assets/candymap.json';
 import PlayerController from './PlayerController';
@@ -21,6 +22,7 @@ export default class Game extends Phaser.Scene {
     this.load.atlas('pinkHero', pinkP, pinkJ);
     this.load.image('tiles', candyMap);
     this.load.tilemapTiledJSON('tilemap', candyMapJ);
+    this.load.image('star', star);
   }
 
   create() {
@@ -40,6 +42,14 @@ export default class Game extends Phaser.Scene {
           
           this.playerController = new PlayerController(this.Hero, this.cursors);
           this.cameras.main.startFollow(this.Hero);
+          break
+        }
+        case 'star': {
+          const star = this.matter.add.sprite(x, y, 'star', undefined, {
+            isStatic: true,
+            isSensor: true
+          });
+          star.setData('type', 'star');
           break
         }
       }
