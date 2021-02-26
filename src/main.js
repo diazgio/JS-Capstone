@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Game from './scenes/Game';
+
 const config = {
     type: Phaser.AUTO,
     width: 900,
