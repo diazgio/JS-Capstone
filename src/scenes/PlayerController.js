@@ -9,6 +9,7 @@ export default class PlayerController {
     this.sprite = sprite;
     this.cursors = cursors;
     this.obstacles = obstacles;
+    this.health = 100;
     this.createAnimations();
     this.stateMachine = new StateMachine(this, 'player');
     this.stateMachine.addState('idle', {
@@ -52,9 +53,17 @@ export default class PlayerController {
 
       switch(type) {
         case 'star': {
-          events.emit('star-collected')
+          events.emit('star-collected');
           sprite.destroy();
           break
+        }
+        case 'health': {
+          const a = sprite.getData('healthPoints')
+          const value = a !== null && a !== void 0 ? a : 10;
+          this.health = Phaser.Math.Clamp(this.health + value, 0, 100);
+          events.emit('health-changed', this.health);
+          sprite.destroy();
+          break;
         }
       }
 
@@ -122,6 +131,8 @@ export default class PlayerController {
 
   creamHitOnEnter() {
     this.sprite.setVelocityY(-8);
+    this.health = Phaser.Math.Clamp(this.health - 10, 0, 100);
+    events.emit('health-changed', this.health);
     const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
     const endColor = Phaser.Display.Color.ValueToColor(0xff0000);
     this.scene.tweens.addCounter({

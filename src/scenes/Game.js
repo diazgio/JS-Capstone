@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import pinkJ from '../../public/assets/pinkProta2.json';
 import pinkP from '../../public/assets/pinkProta2.png';
-import star from '../../public/assets/star.png'
+import star from '../../public/assets/star.png';
+import health from '../../public/assets/health.png';
 import candyMap from '../../public/assets/sheetCandy.png';
 import candyMapJ from '../../public/assets/candymap3.json';
 import PlayerController from './PlayerController';
@@ -25,6 +26,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('tiles', candyMap);
     this.load.tilemapTiledJSON('tilemap', candyMapJ);
     this.load.image('star', star);
+    this.load.image('health', health);
   }
 
   create() {
@@ -54,6 +56,15 @@ export default class Game extends Phaser.Scene {
             isSensor: true
           });
           star.setData('type', 'star');
+          break;
+        }
+        case 'health': {
+          const health = this.matter.add.sprite(x, y, 'health', undefined, {
+            isStatic: true,
+            isSensor: true
+          });
+          health.setData('type', 'health');
+          health.setData('healthPoints', 10);
           break;
         }
         case 'cream': {
