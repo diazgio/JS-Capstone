@@ -1,28 +1,40 @@
 import Phaser from 'phaser';
 import StateMachine from '../statemachine/stateMachine';
+import { shareInstance as events } from './EventCenter';
+import ObstaclesController from './ObstaclesController';
 
 export default class PlayerController {
-  constructor(sprite, cursors) {
+  constructor(scene, sprite, cursors, obstacles) {
+    this.scene = scene;
     this.sprite = sprite;
     this.cursors = cursors;
+    this.obstacles = obstacles;
     this.createAnimations();
     this.stateMachine = new StateMachine(this, 'player');
     this.stateMachine.addState('idle', {
         onEnter: this.idleOnEnter,
         onUpdate: this.idleOnUpdate
     })
-        .addState('walk', {
-        onEnter: this.walkOnEnter,
-        onUpdate: this.walkOnUpdate
+    .addState('walk', {
+      onEnter: this.walkOnEnter,
+      onUpdate: this.walkOnUpdate
     })
-        .addState('jump', {
-        onEnter: this.jumpOnEnter,
-        onUpdate: this.jumpOnUpdate
+    .addState('jump', {
+      onEnter: this.jumpOnEnter,
+      onUpdate: this.jumpOnUpdate
     })
-        .setState('idle');
+    .addState('cream-hit', {
+      onEnter: this.creamHitOnEnter
+    })
+    .setState('idle');
+
     this.sprite.setOnCollide((data) => {
 
       const body = data.bodyB;
+      if(this.obstacles.is('cream', body)){
+        this.stateMachine.setState('cream-hit');
+        return
+      }
       const gameItem = body.gameObject;
 
       if(!gameItem) {
@@ -40,6 +52,7 @@ export default class PlayerController {
 
       switch(type) {
         case 'star': {
+          events.emit('star-collected')
           sprite.destroy();
           break
         }
@@ -91,7 +104,7 @@ export default class PlayerController {
   }
 
   jumpOnEnter() {
-    this.sprite.setVelocityY(-10);
+    this.sprite.setVelocityY(-13);
     this.sprite.play('player-jump');
   }
 
@@ -105,6 +118,27 @@ export default class PlayerController {
         this.sprite.flipX = false;
         this.sprite.setVelocityX(speed);
     }
+  }
+
+  creamHitOnEnter() {
+    this.sprite.setVelocityY(-8);
+    const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
+    const endColor = Phaser.Display.Color.ValueToColor(0xff0000);
+    this.scene.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: 100,
+      repeat: 2,
+      yoyo: true,
+      ease: Phaser.Math.Easing.Sine.InOut,
+      onUpdate: tween => {
+        const value = tween.getValue()
+        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(startColor, endColor, 100, value)
+        const color = Phaser.Display.Color.GetColor(colorObject.r, colorObject.g, colorObject.b)
+        this.sprite.setTint(color)
+      }
+    })
+    this.stateMachine.setState('idle');
   }
 
   createAnimations() {
