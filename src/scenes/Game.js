@@ -6,7 +6,10 @@ import health from '../../public/assets/health.png';
 import candyMap from '../../public/assets/sheetCandy.png';
 import candyMapJ from '../../public/assets/candymap3.json';
 import PlayerController from './PlayerController';
+import Enemy1Controller from './Enemy1Controller';
 import ObstaclesController from './ObstaclesController';
+import enemy1P from '../../public/assets/enemy1.png';
+import enemy1J from '../../public/assets/enemy1.json';
 
 export default class Game extends Phaser.Scene {
   
@@ -14,11 +17,16 @@ export default class Game extends Phaser.Scene {
 	{
     super('Game')
     this.Hero = Phaser.Physics.Matter.Sprite;
+    this.enemy1 = [];
 	}
 
   init(){
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.obstacles = new ObstaclesController()
+    this.obstacles = new ObstaclesController();
+    this.enemy1 = [];
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+			this.destroy()
+		})
   }
 
 	preload() {
@@ -27,6 +35,7 @@ export default class Game extends Phaser.Scene {
     this.load.tilemapTiledJSON('tilemap', candyMapJ);
     this.load.image('star', star);
     this.load.image('health', health);
+    this.load.atlas('enemy1', enemy1P, enemy1J);
   }
 
   create() {
@@ -48,6 +57,13 @@ export default class Game extends Phaser.Scene {
           
           this.playerController = new PlayerController(this, this.Hero, this.cursors, this.obstacles);
           this.cameras.main.startFollow(this.Hero);
+          break;
+        }
+        case 'enemy1': {
+          const enemy1 = this.matter.add.sprite(x + (width * 0.5), y, 'enemy1')
+                          .setFixedRotation()
+          this.enemy1.push(new Enemy1Controller(this, enemy1));
+          this.obstacles.add('enemy1', enemy1.body);
           break;
         }
         case 'star': {
@@ -79,12 +95,14 @@ export default class Game extends Phaser.Scene {
 
     this.matter.world.convertTilemapLayer(ground);
   }
-
+  destroy() {
+    this.enemy1.forEach(enemy1 => enemy1.destroy());
+  }
   update(t, dt){
 
-    if(!this.playerController) {
-      return
+    if(this.playerController) {
+      this.playerController.update(dt);
     }
-    this.playerController.update(dt);
+    this.enemy1.forEach(enemy1 => enemy1.update(dt));
   }
 }

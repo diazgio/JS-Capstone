@@ -27,6 +27,12 @@ export default class PlayerController {
     .addState('cream-hit', {
       onEnter: this.creamHitOnEnter
     })
+    .addState('enemy1-hit', {
+      onEnter: this.enemy1HitOnEnter
+    })
+    .addState('enemy1-stomp', {
+      onEnter: this.enemy1StompOnEnter
+    })
     .setState('idle');
 
     this.sprite.setOnCollide((data) => {
@@ -34,6 +40,15 @@ export default class PlayerController {
       const body = data.bodyB;
       if(this.obstacles.is('cream', body)){
         this.stateMachine.setState('cream-hit');
+        return
+      }
+      if(this.obstacles.is('enemy1', body)){
+        this.lastEnemy1 = body.gameObject;
+        if(this.sprite.y < body.position.y) {
+          this.stateMachine.setState('enemy1-stomp');
+        } else {
+          this.stateMachine.setState('enemy1-hit');
+        }
         return
       }
       const gameItem = body.gameObject;
@@ -149,6 +164,43 @@ export default class PlayerController {
         this.sprite.setTint(color)
       }
     })
+    this.stateMachine.setState('idle');
+  }
+
+  enemy1HitOnEnter() {
+    if(this.lastEnemy1) {
+      if(this.sprite.x < this.lastEnemy1.x) {
+        this.sprite.setVelocityX(-20);
+      } else {
+        this.sprite.setVelocityX(20);
+      }
+    } else {
+      this.sprite.setVelocityY(-10);
+    }
+    this.health = Phaser.Math.Clamp(this.health - 10, 0, 100);
+    events.emit('health-changed', this.health);
+    const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
+    const endColor = Phaser.Display.Color.ValueToColor(0x0000ff);
+    this.scene.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: 100,
+      repeat: 2,
+      yoyo: true,
+      ease: Phaser.Math.Easing.Sine.InOut,
+      onUpdate: tween => {
+        const value = tween.getValue()
+        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(startColor, endColor, 100, value)
+        const color = Phaser.Display.Color.GetColor(colorObject.r, colorObject.g, colorObject.b)
+        this.sprite.setTint(color)
+      }
+    })
+    this.stateMachine.setState('idle');
+  }
+
+  enemy1StompOnEnter() {
+    this.sprite.setVelocityY(-10);
+    events.emit('enemy1-stomped', this.lastEnemy1);
     this.stateMachine.setState('idle');
   }
 
