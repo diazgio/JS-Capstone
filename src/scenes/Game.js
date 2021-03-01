@@ -56,7 +56,7 @@ export default class Game extends Phaser.Scene {
               .setFixedRotation();
           
           this.playerController = new PlayerController(this, this.Hero, this.cursors, this.obstacles);
-          this.cameras.main.startFollow(this.Hero);
+          this.cameras.main.startFollow(this.Hero, true);
           break;
         }
         case 'enemy1': {
@@ -96,6 +96,7 @@ export default class Game extends Phaser.Scene {
     this.matter.world.convertTilemapLayer(ground);
   }
   destroy() {
+    this.scene.stop('ui');
     this.enemy1.forEach(enemy1 => enemy1.destroy());
   }
   update(t, dt){

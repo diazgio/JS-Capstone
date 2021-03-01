@@ -33,6 +33,9 @@ export default class PlayerController {
     .addState('enemy1-stomp', {
       onEnter: this.enemy1StompOnEnter
     })
+    .addState('dead', {
+      onEnter: this.deadOnEnter
+    })
     .setState('idle');
 
     this.sprite.setOnCollide((data) => {
@@ -89,6 +92,14 @@ export default class PlayerController {
     this.stateMachine.update(dt);
   }
 
+  setHealth(value) {
+    this.health = Phaser.Math.Clamp(value, 0, 100);
+    events.emit('health-changed', this.health);
+    if(this.health <= 0) {
+      this.stateMachine.setState('dead');
+    }
+  }
+
   idleOnEnter() {
     this.sprite.play('player-idle');
   }
@@ -99,7 +110,7 @@ export default class PlayerController {
     }
     const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space);
     if (spaceJustPressed) {
-        this.stateMachine.setState('jump');
+      this.stateMachine.setState('jump');
     }
   }
 
@@ -123,7 +134,7 @@ export default class PlayerController {
     }
     const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space);
     if (spaceJustPressed) {
-        this.stateMachine.setState('jump');
+      this.stateMachine.setState('jump');
     }
   }
 
@@ -146,8 +157,6 @@ export default class PlayerController {
 
   creamHitOnEnter() {
     this.sprite.setVelocityY(-8);
-    this.health = Phaser.Math.Clamp(this.health - 10, 0, 100);
-    events.emit('health-changed', this.health);
     const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
     const endColor = Phaser.Display.Color.ValueToColor(0xff0000);
     this.scene.tweens.addCounter({
@@ -165,6 +174,7 @@ export default class PlayerController {
       }
     })
     this.stateMachine.setState('idle');
+    this.setHealth(this.health - 10);
   }
 
   enemy1HitOnEnter() {
@@ -177,8 +187,6 @@ export default class PlayerController {
     } else {
       this.sprite.setVelocityY(-10);
     }
-    this.health = Phaser.Math.Clamp(this.health - 10, 0, 100);
-    events.emit('health-changed', this.health);
     const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
     const endColor = Phaser.Display.Color.ValueToColor(0x0000ff);
     this.scene.tweens.addCounter({
@@ -196,6 +204,7 @@ export default class PlayerController {
       }
     })
     this.stateMachine.setState('idle');
+    this.setHealth(this.health - 25);
   }
 
   enemy1StompOnEnter() {
@@ -204,29 +213,48 @@ export default class PlayerController {
     this.stateMachine.setState('idle');
   }
 
+  deadOnEnter() {
+    this.sprite.play('player-death');
+    this.sprite.setOnCollide(() => {}); // NoOp: no option function, to stop any movement.
+    this.scene.time.delayedCall(2000, () => {
+      this.scene.scene.start('game-over');
+    })
+  }
+
   createAnimations() {
     this.sprite.anims.create({
-        key: 'player-idle',
-        frames: [{ key: 'pinkHero', frame: 'Pink_Monster_Walk_06.png' }]
+      key: 'player-idle',
+      frames: [{ key: 'pinkHero', frame: 'Pink_Monster_Walk_06.png' }]
     });
     this.sprite.anims.create({
-        key: 'player-walk',
-        frameRate: 10,
-        frames: this.sprite.anims.generateFrameNames('pinkHero', {
-            start: 1,
-            end: 6,
-            prefix: 'Pink_Monster_Walk_0',
-            suffix: '.png'
-        }),
-        repeat: -1
+      key: 'player-walk',
+      frameRate: 10,
+      frames: this.sprite.anims.generateFrameNames('pinkHero', {
+          start: 1,
+          end: 6,
+          prefix: 'Pink_Monster_Walk_0',
+          suffix: '.png'
+      }),
+      repeat: -1
     });
     this.sprite.anims.create({
-        key: 'player-jump',
+      key: 'player-jump',
+      frameRate: 5,
+      frames: this.sprite.anims.generateFrameNames('pinkHero', {
+          start: 1,
+          end: 8,
+          prefix: 'Pink_Monster_Jump_0',
+          suffix: '.png'
+      })
+    });
+    this.sprite.anims.create({
+      key: 'player-death',
         frameRate: 5,
         frames: this.sprite.anims.generateFrameNames('pinkHero', {
             start: 1,
-            end: 8,
-            prefix: 'Pink_Monster_Jump_0',
+            end: 4,
+            prefix: 'Pink_Monster_Death_',
+            zeroPad: 2,
             suffix: '.png'
         })
     });
