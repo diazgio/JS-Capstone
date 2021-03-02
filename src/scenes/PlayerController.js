@@ -11,6 +11,7 @@ export default class PlayerController {
     this.obstacles = obstacles;
     this.health = 100;
     this.createAnimations();
+    this.sprite.setFriction(0.008);
     this.stateMachine = new StateMachine(this, 'player');
     this.stateMachine.addState('idle', {
         onEnter: this.idleOnEnter,
