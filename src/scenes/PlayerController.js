@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import 'phaser';
 import StateMachine from '../statemachine/stateMachine';
 import { shareInstance as events } from './EventCenter';
 import ObstaclesController from './ObstaclesController';

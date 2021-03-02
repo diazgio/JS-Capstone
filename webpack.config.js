@@ -7,11 +7,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
         test: /\.s?css$/,
         use: [
           'style-loader',
@@ -20,6 +15,16 @@ module.exports = {
           'postcss-loader',
           'sass-loader',
         ],
+      },
+      {
+        test: /\.js$|jsx/,
+        include: path.resolve(__dirname, 'src/'),
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       {
         test: /\.(png|svg|jpe?g|gif)$/,
@@ -49,6 +54,10 @@ module.exports = {
         ],
       },
       {
+        test: [/\.vert$/, /\.frag$/],
+        use: 'raw-loader',
+      },
+      {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
           'file-loader',
@@ -56,9 +65,9 @@ module.exports = {
       }
     ],
   },
-  devtool: 'eval-cheap-source-map',
+  devtool: 'inline-source-map',
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.js', '.jsx', '.jsx.html'],
   },
   devServer: {
     port: 8080,
