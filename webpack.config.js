@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/index.js',
   module: {
     rules: [
       {
@@ -83,5 +83,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Development',
     }),
-  ],
+  ]
 };

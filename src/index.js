@@ -9,6 +9,7 @@ import Game from './scenes/Game';
 import UI from './scenes/UI';
 import GameOver from './scenes/GameOver';
 import Model from './Model';
+
 class FullGame extends Phaser.Game {
   constructor () {
     super(config);
