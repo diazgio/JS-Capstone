@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import zenva from '../../public/assets/zenva_logo.png';
  
 export default class BootScene extends Phaser.Scene {

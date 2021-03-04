@@ -1,9 +1,46 @@
 const path = require('path');
+const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+
 module.exports = {
-  entry: './src/index.js',
+  mode: 'development',
+  entry: {
+    app: './src/index.js',
+    'production-dependencies': ['phaser'],
+  },
+
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+  },
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000,
+  },
+  plugins: [
+    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
+    new HtmlWebpackPlugin({
+      title: 'Development',
+      // template: './index.html',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src', 'assets', '**', '*'),
+          to: path.resolve(__dirname, 'dist'),
+        },
+      ],
+    }),
+    new webpack.DefinePlugin({
+      'typeof CANVAS_RENDERER': JSON.stringify(true),
+      'typeof WEBGL_RENDERER': JSON.stringify(true),
+    }),
+  ],
   module: {
     rules: [
       {
@@ -62,26 +99,13 @@ module.exports = {
         use: [
           'file-loader',
         ],
-      }
+      },
     ],
   },
-  devtool: 'inline-source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.jsx.html'],
+    modules: [
+      path.join(__dirname, 'node_modules'),
+    ],
   },
-  devServer: {
-    port: 8080,
-    contentBase: 'build',
-    open: true,
-  },
-  output: {
-    filename: '[fullhash]_bundle.js',
-    path: path.resolve(__dirname, 'build'),
-  },
-  plugins: [
-    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
-    new HtmlWebpackPlugin({
-      title: 'Development',
-    }),
-  ]
 };

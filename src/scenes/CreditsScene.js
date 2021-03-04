@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import config from '../config/Config';
  
 export default class CreditsScene extends Phaser.Scene {
