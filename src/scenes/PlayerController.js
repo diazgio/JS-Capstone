@@ -182,7 +182,7 @@ export default class PlayerController {
       }
     })
     this.stateMachine.setState('idle');
-    this.setHealth(this.health - 10);
+    this.setHealth(this.health - 100);
   }
 
   creamHitOnEnter1() {

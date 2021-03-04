@@ -63,7 +63,8 @@ export default class Game extends Phaser.Scene {
           const door = this.matter.add.sprite(x, y, 'door', undefined, { 
             isStatic: true,
             isSensor: true
-          })
+          });
+          door.setData('type', 'door');
           break;
         }
         case 'enemy1': {
