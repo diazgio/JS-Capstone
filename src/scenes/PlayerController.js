@@ -28,6 +28,9 @@ export default class PlayerController {
     .addState('cream-hit', {
       onEnter: this.creamHitOnEnter
     })
+    .addState('cream1-hit', {
+      onEnter: this.creamHitOnEnter1
+    })
     .addState('enemy1-hit', {
       onEnter: this.enemy1HitOnEnter
     })
@@ -44,6 +47,10 @@ export default class PlayerController {
       const body = data.bodyB;
       if(this.obstacles.is('cream', body)){
         this.stateMachine.setState('cream-hit');
+        return
+      }
+      if(this.obstacles.is('cream1', body)){
+        this.stateMachine.setState('cream1-hit');
         return
       }
       if(this.obstacles.is('enemy1', body)){
@@ -158,6 +165,28 @@ export default class PlayerController {
 
   creamHitOnEnter() {
     this.sprite.setVelocityY(-8);
+    const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
+    const endColor = Phaser.Display.Color.ValueToColor(0xff0000);
+    this.scene.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: 100,
+      repeat: 2,
+      yoyo: true,
+      ease: Phaser.Math.Easing.Sine.InOut,
+      onUpdate: tween => {
+        const value = tween.getValue()
+        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(startColor, endColor, 100, value)
+        const color = Phaser.Display.Color.GetColor(colorObject.r, colorObject.g, colorObject.b)
+        this.sprite.setTint(color)
+      }
+    })
+    this.stateMachine.setState('idle');
+    this.setHealth(this.health - 10);
+  }
+
+  creamHitOnEnter1() {
+    this.sprite.setVelocityY(8);
     const startColor = Phaser.Display.Color.ValueToColor(0xffffff);
     const endColor = Phaser.Display.Color.ValueToColor(0xff0000);
     this.scene.tweens.addCounter({

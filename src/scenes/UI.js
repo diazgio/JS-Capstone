@@ -17,7 +17,7 @@ export default class UI extends Phaser.Scene {
   create() {
     this.graphics = this.add.graphics();
     this.setHealthBar(100);
-    this.starsLabel = this.add.text(10, 35, 'Stars: 0', {
+    this.starsLabel = this.add.text(10, 35, 'Points: 0', {
       fontSize: '32px'
     });
     
@@ -30,8 +30,8 @@ export default class UI extends Phaser.Scene {
   }
   
   handleStarCollected() {
-    this.starsCollected += 1;
-    this.starsLabel.text = `Stars: ${this.starsCollected}`;
+    this.starsCollected += 10;
+    this.starsLabel.text = `Points: ${this.starsCollected}`;
   }
   
   setHealthBar(value) {

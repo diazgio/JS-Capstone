@@ -4,7 +4,7 @@ import pinkP from '../../public/assets/pinkProta2.png';
 import star from '../../public/assets/star.png';
 import health from '../../public/assets/health.png';
 import candyMap from '../../public/assets/sheetCandy.png';
-import candyMapJ from '../../public/assets/candymap3.json';
+import candyMapJ from '../../public/assets/candymap1exp.json';
 import PlayerController from './PlayerController';
 import Enemy1Controller from './Enemy1Controller';
 import ObstaclesController from './ObstaclesController';
@@ -59,6 +59,13 @@ export default class Game extends Phaser.Scene {
           this.cameras.main.startFollow(this.Hero, true);
           break;
         }
+        case 'Door': {
+          const door = this.matter.add.sprite(x, y, 'door', undefined, { 
+            isStatic: true,
+            isSensor: true
+          })
+          break;
+        }
         case 'enemy1': {
           const enemy1 = this.matter.add.sprite(x + (width * 0.5), y, 'enemy1')
                           .setFixedRotation()
@@ -88,6 +95,13 @@ export default class Game extends Phaser.Scene {
             isStatic: true
           });
           this.obstacles.add('cream', cream);
+          break;
+        }
+        case 'cream1': {
+          const cream1 = this.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
+            isStatic: true
+          });
+          this.obstacles.add('cream1', cream1);
           break;
         }
       }
