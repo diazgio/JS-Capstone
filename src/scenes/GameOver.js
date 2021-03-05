@@ -14,7 +14,7 @@ export default class GameOver extends Phaser.Scene {
     })
     .setOrigin(0.5);
      // Game
-     this.playAgainButton = new Button(this, config.width/2, config.height/2 - 100, 'pinkButton1', 'pinkButton2', 'Play Again', 'Game');
+     this.playAgainButton = new Button(this, config.width/2, config.height/2 - 100, 'pinkButton1', 'pinkButton2', 'Play Again', 'LevelOne');
     
      // Menu
      this.menuButton = new Button(this, config.width/2, config.height/2, 'pinkButton1', 'pinkButton2', 'Menu', 'Title');

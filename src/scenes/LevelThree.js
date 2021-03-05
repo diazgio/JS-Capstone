@@ -4,7 +4,7 @@ import pinkP from '../../public/assets/pinkProta2.png';
 import star from '../../public/assets/star.png';
 import health from '../../public/assets/health.png';
 import candyMap from '../../public/assets/sheetCandy.png';
-import candyMapJ from '../../public/assets/candymap1exp.json';
+import candyMapJ from '../../public/assets/candymap2exp.json';
 import PlayerController from './PlayerController';
 import Enemy1Controller from './Enemy1Controller';
 import ObstaclesController from './ObstaclesController';
@@ -16,7 +16,7 @@ export default class Game extends Phaser.Scene {
   
   constructor()
 	{
-    super('Game')
+    super('LevelTrhee')
     this.Hero = Phaser.Physics.Matter.Sprite;
     this.enemy1 = [];
 	}
@@ -37,7 +37,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('star', star);
     this.load.image('health', health);
     this.load.atlas('enemy1', enemy1P, enemy1J);
-    this.load.image('door', door);
+    this.load.image('door3', door);
   }
 
   create() {
@@ -60,12 +60,12 @@ export default class Game extends Phaser.Scene {
           this.cameras.main.startFollow(this.Hero, true);
           break;
         }
-        case 'door': {
-          const door = this.matter.add.sprite(x + (width *0.5), y + (height * 0.5), 'door', undefined, { 
+        case 'door3': {
+          const door3 = this.matter.add.sprite(x + (width *0.5), y + (height * 0.5), 'door3', undefined, { 
             isStatic: true,
             isSensor: true
           });
-          door.setData('type', 'door');
+          door3.setData('type', 'door3');
           break;
         }
         case 'enemy1': {

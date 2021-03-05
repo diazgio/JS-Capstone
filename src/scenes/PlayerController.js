@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import StateMachine from '../statemachine/stateMachine';
 import { shareInstance as events } from './EventCenter';
-import ObstaclesController from './ObstaclesController';
 
 export default class PlayerController {
   constructor(scene, sprite, cursors, obstacles) {
@@ -93,7 +92,13 @@ export default class PlayerController {
         }
         case 'door': {
           this.scene.time.delayedCall(500, () => {
-            this.scene.scene.start('Title');
+            this.scene.scene.start('LevelTwo');
+          });
+          break;
+        }
+        case 'door1': {
+          this.scene.time.delayedCall(500, () => {
+            this.scene.scene.start('LevelThree');
           });
           break;
         }
