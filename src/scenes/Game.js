@@ -10,6 +10,7 @@ import Enemy1Controller from './Enemy1Controller';
 import ObstaclesController from './ObstaclesController';
 import enemy1P from '../../public/assets/enemy1.png';
 import enemy1J from '../../public/assets/enemy1.json';
+import door from '../../public/assets/door.png';
 
 export default class Game extends Phaser.Scene {
   
@@ -36,6 +37,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('star', star);
     this.load.image('health', health);
     this.load.atlas('enemy1', enemy1P, enemy1J);
+    this.load.image('door', door);
   }
 
   create() {
@@ -43,7 +45,6 @@ export default class Game extends Phaser.Scene {
     const map = this.make.tilemap({ key: 'tilemap' });
     const tileSet = map.addTilesetImage('CandyWorld', 'tiles');
     const ground = map.createLayer('ground', tileSet);
-
     ground.setCollisionByProperty({ collides: true });
     map.createLayer('obstacles', tileSet);
     
@@ -53,14 +54,14 @@ export default class Game extends Phaser.Scene {
       switch(name) {
         case 'HeroSpwam': {
           this.Hero = this.matter.add.sprite(x + (width * 0.5), y, 'pinkHero')
-              .setFixedRotation();
+          .setFixedRotation();
           
           this.playerController = new PlayerController(this, this.Hero, this.cursors, this.obstacles);
           this.cameras.main.startFollow(this.Hero, true);
           break;
         }
-        case 'Door': {
-          const door = this.matter.add.sprite(x, y, 'door', undefined, { 
+        case 'door': {
+          const door = this.matter.add.sprite(x + (width *0.5), y + (height * 0.5), 'door', undefined, { 
             isStatic: true,
             isSensor: true
           });

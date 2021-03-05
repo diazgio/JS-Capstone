@@ -91,6 +91,12 @@ export default class PlayerController {
           sprite.destroy();
           break;
         }
+        case 'door': {
+          this.scene.time.delayedCall(500, () => {
+            this.scene.scene.start('Title');
+          });
+          break;
+        }
       }
 
     });
@@ -182,7 +188,7 @@ export default class PlayerController {
       }
     })
     this.stateMachine.setState('idle');
-    this.setHealth(this.health - 100);
+    this.setHealth(this.health - 10);
   }
 
   creamHitOnEnter1() {
@@ -248,7 +254,7 @@ export default class PlayerController {
     this.sprite.setOnCollide(() => {}); // NoOp: no option function, to stop any movement.
     this.scene.time.delayedCall(2000, () => {
       this.scene.scene.start('game-over');
-    })
+    });
   }
 
   createAnimations() {
