@@ -15,7 +15,11 @@ export default class Button extends Phaser.GameObjects.Container {
     this.add(this.text);
 
     this.button.on('pointerdown', function () {
-      this.scene.scene.start(targetScene);
+      if(targetScene === 'LevelOne'){
+        this.scene.scene.start(targetScene, { stars: 0, health: 100 });
+      } else {
+        this.scene.scene.start(targetScene);
+      }
     }.bind(this));
 
     this.button.on('pointerover', function () {

@@ -3,12 +3,13 @@ import StateMachine from '../statemachine/stateMachine';
 import { shareInstance as events } from './EventCenter';
 
 export default class PlayerController {
-  constructor(scene, sprite, cursors, obstacles) {
+  constructor(scene, sprite, cursors, obstacles, health, stars) {
     this.scene = scene;
     this.sprite = sprite;
     this.cursors = cursors;
     this.obstacles = obstacles;
-    this.health = 100;
+    this.health = health;
+    this.starsColleted = stars;
     this.createAnimations();
     this.sprite.setFriction(0.008);
     this.stateMachine = new StateMachine(this, 'player');
@@ -78,7 +79,8 @@ export default class PlayerController {
 
       switch(type) {
         case 'star': {
-          events.emit('star-collected');
+          this.starsColleted += 10;
+          events.emit('star-collected', this.starsColleted);
           sprite.destroy();
           break
         }

@@ -21,7 +21,9 @@ export default class Game extends Phaser.Scene {
     this.enemy1 = [];
 	}
 
-  init(){
+  init(data){
+    this.starsCollected = Number(data.stars);
+    this.health = Number(data.health);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.obstacles = new ObstaclesController();
     this.enemy1 = [];
@@ -41,7 +43,7 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    this.scene.launch('ui')
+    this.scene.launch('ui', { stars: this.starsCollected, health: this.health });
     const map = this.make.tilemap({ key: 'tilemap' });
     const tileSet = map.addTilesetImage('CandyWorld', 'tiles');
     const ground = map.createLayer('ground', tileSet);
@@ -56,7 +58,7 @@ export default class Game extends Phaser.Scene {
           this.Hero = this.matter.add.sprite(x + (width * 0.5), y, 'pinkHero')
           .setFixedRotation();
           
-          this.playerController = new PlayerController(this, this.Hero, this.cursors, this.obstacles);
+          this.playerController = new PlayerController(this, this.Hero, this.cursors, this.obstacles, this.health, this.starsCollected);
           this.cameras.main.startFollow(this.Hero, true);
           break;
         }

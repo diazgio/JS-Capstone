@@ -6,12 +6,12 @@ export default class UI extends Phaser.Scene {
     super({
       key: 'ui',
     });
-    this.starsCollected = 0;
-    this.lastHealth = 100
   }
-
-  init() {
-    this.starsCollected = 0;
+  
+  init(data = {}) {
+    this.starsCollected = Number(data.stars);
+    this.lastHealth = Number(data.health);
+    console.log(data);
   }
 
   create() {
@@ -29,8 +29,8 @@ export default class UI extends Phaser.Scene {
     
   }
   
-  handleStarCollected() {
-    this.starsCollected += 10;
+  handleStarCollected(value) {
+    this.starsCollected = value;
     this.starsLabel.text = `Points: ${this.starsCollected}`;
   }
   
