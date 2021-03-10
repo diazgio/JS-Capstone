@@ -94,13 +94,7 @@ export default class PlayerController {
         }
         case 'door': {
           this.scene.time.delayedCall(500, () => {
-            this.scene.scene.start('LevelTwo');
-          });
-          break;
-        }
-        case 'door1': {
-          this.scene.time.delayedCall(500, () => {
-            this.scene.scene.start('LevelThree');
+            this.scene.scene.start('WinScene');
           });
           break;
         }

@@ -4,7 +4,7 @@ import pinkP from '../../public/assets/pinkProta2.png';
 import star from '../../public/assets/star.png';
 import health from '../../public/assets/health.png';
 import candyMap from '../../public/assets/sheetCandy.png';
-import candyMapJ from '../../public/assets/candymap1exp.json';
+import candyMapJ from '../../public/assets/candymapFinall.json';
 import PlayerController from './PlayerController';
 import Enemy1Controller from './Enemy1Controller';
 import ObstaclesController from './ObstaclesController';
