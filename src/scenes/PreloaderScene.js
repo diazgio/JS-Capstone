@@ -3,6 +3,8 @@ import button1 from '../../public/assets/pink_button01.png';
 import button2 from '../../public/assets/pink_button02.png';
 import box from '../../public/assets/grey_box.png';
 import checkbox from '../../public/assets/pink_boxCheckmark.png';
+import bg from '../../public/assets/bgtitle.png';
+import board from '../../public/assets/board.png';
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor () {
@@ -88,6 +90,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('pinkButton2', button2);
     this.load.image('box', box);
     this.load.image('checkedBox', checkbox);
+    this.load.image('bg', bg);
+    this.load.image('board', board);
     this.load.audio('bgMusic', ['../src/assets/TownTheme.mp3']);
   }
  

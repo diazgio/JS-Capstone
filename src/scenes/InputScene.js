@@ -9,18 +9,15 @@ export default class InputScene extends Phaser.Scene {
   }
 
   create() {
+    this.add.image(config.width / 2, config.height / 2, 'bg').setDepth(-1);
     const { width, height } = this.scale;
     this.add.text(width *0.5, height * 0.1, 'Register', {
-      fontSize: '52px',
-      color: '#ff0000'
+      fontSize: '58px',
+      color: '#ff00e5',
+      fontFamily: 'Franklin Gothic Medium',
+      fontStyle: 'bolder'
     })
     .setOrigin(0.5);
-    // const text = this.add.text(config.width / 2 - 90, config.height / 2 - 250, 'Please, enter your name', { 
-    //   color: '#5d1512',
-    //   fontFamily: 'Arial',
-    //   fontSize: '32px '
-    // });
-    // text.setScale(0.7);
     const element = document.getElementById('name-form');
     element.style.display = 'block';
 

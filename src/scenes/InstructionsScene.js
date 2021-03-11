@@ -8,15 +8,14 @@ export default class InstructionsScene extends Phaser.Scene {
     super('InstructionsScene');
   }
  
-  // preload () {
-    
-  // }
- 
   create() {
+    this.add.image(config.width / 2, config.height / 2, 'board').setScale(2);
     const { width, height } = this.scale;
-    this.add.text(width *0.5, height * 0.1, 'Instrucciones', {
+    this.add.text(width *0.5, height * 0.1, 'Instructions', {
       fontSize: '52px',
-      color: '#ff0000'
+      color: '#ff00e5',
+      fontFamily: 'Franklin Gothic Medium',
+      fontStyle: 'bolder'
     })
     .setOrigin(0.5);
     
