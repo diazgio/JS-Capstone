@@ -8,18 +8,14 @@ export default class Button extends Phaser.GameObjects.Container {
     this.y = y;
 
     this.button = this.scene.add.sprite(0, 0, key1).setInteractive();
-    this.text = this.scene.add.text(0, 0, text, { fontSize: '32px', fill: '#fff' });
+    this.text = this.scene.add.text(0, 0, text, { fontSize: '28px', fill: '#fff' });
     Phaser.Display.Align.In.Center(this.text, this.button);
 
     this.add(this.button);
     this.add(this.text);
 
     this.button.on('pointerdown', function () {
-      if(targetScene === 'LevelOne'){
-        this.scene.scene.start(targetScene, { stars: 0, health: 100 });
-      } else {
-        this.scene.scene.start(targetScene);
-      }
+      this.scene.scene.start(targetScene);
     }.bind(this));
 
     this.button.on('pointerover', function () {

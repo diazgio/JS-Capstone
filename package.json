@@ -2,9 +2,29 @@
   "name": "JS-Capstone",
   "version": "1.0.0",
   "description": "",
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "setupFiles": [
+      "jest-canvas-mock"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/test/mocks/styleMock.js",
+      "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/test/mocks/fileMock.js"
+    },
+    "modulePathIgnorePatterns": [
+      "<rootDir>/externals"
+    ]
+  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "jest-watch": "jest --watch",
     "watch": "webpack --watch",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
@@ -24,6 +44,7 @@
   "devDependencies": {
     "@babel/core": "^7.13.8",
     "@babel/preset-env": "^7.13.9",
+    "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
@@ -33,7 +54,11 @@
     "eslint-plugin-import": "^2.22.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.2.0",
+    "jest": "^26.6.3",
+    "jest-canvas-mock": "^2.3.1",
+    "jest-expect-subclass": "^1.0.1",
     "raw-loader": "^4.0.2",
+    "regenerator-runtime": "^0.13.7",
     "resolve-url-loader": "^3.1.2",
     "sass-loader": "^11.0.1",
     "stylelint": "^13.11.0",

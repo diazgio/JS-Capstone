@@ -19,11 +19,11 @@ export default class Game extends Phaser.Scene {
     super('LevelOne')
     this.Hero = Phaser.Physics.Matter.Sprite;
     this.enemy1 = [];
+    this.starsCollected = 0;
+    this.health = 100;
 	}
 
   init(data){
-    this.starsCollected = Number(data.stars);
-    this.health = Number(data.health);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.obstacles = new ObstaclesController();
     this.enemy1 = [];

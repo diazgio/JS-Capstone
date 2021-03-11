@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import StateMachine from '../statemachine/stateMachine';
 import { shareInstance as events } from './EventCenter';
+import scoreData from '../score/api';
 
 export default class PlayerController {
   constructor(scene, sprite, cursors, obstacles, health, stars) {
@@ -251,6 +252,8 @@ export default class PlayerController {
   }
 
   deadOnEnter() {
+    scoreData.scoreSetter(this.starsColleted);
+    scoreData.postScores();
     this.sprite.play('player-death');
     this.sprite.setOnCollide(() => {}); // NoOp: no option function, to stop any movement.
     this.scene.time.delayedCall(2000, () => {

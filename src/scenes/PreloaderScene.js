@@ -1,12 +1,9 @@
 import Phaser from 'phaser';
 import button1 from '../../public/assets/pink_button01.png';
 import button2 from '../../public/assets/pink_button02.png';
-// import logo from '../../public/assets/logo.png';
 import box from '../../public/assets/grey_box.png';
 import checkbox from '../../public/assets/pink_boxCheckmark.png';
-// import theme from '../../public/assets/TownTheme.mp3';
 
- 
 export default class PreloaderScene extends Phaser.Scene {
   constructor () {
     super('Preloader');

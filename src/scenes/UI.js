@@ -11,7 +11,7 @@ export default class UI extends Phaser.Scene {
   init(data = {}) {
     this.starsCollected = Number(data.stars);
     this.lastHealth = Number(data.health);
-    console.log(data);
+    console.log(this.lastHealth);
   }
 
   create() {
