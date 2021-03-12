@@ -1,3 +1,4 @@
+/* eslint-disable max-len, default-case */
 import Phaser from 'phaser';
 import pinkJ from '../../public/assets/pinkProta2.json';
 import pinkP from '../../public/assets/pinkProta2.png';
@@ -13,26 +14,24 @@ import enemy1J from '../../public/assets/enemy1.json';
 import door from '../../public/assets/door.png';
 
 export default class Game extends Phaser.Scene {
-  
-  constructor()
-	{
-    super('LevelOne')
+  constructor() {
+    super('LevelOne');
     this.Hero = Phaser.Physics.Matter.Sprite;
     this.enemy1 = [];
     this.starsCollected = 0;
     this.health = 100;
-	}
+  }
 
-  init(data){
+  init() {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.obstacles = new ObstaclesController();
     this.enemy1 = [];
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-			this.destroy()
-		})
+      this.destroy();
+    });
   }
 
-	preload() {
+  preload() {
     this.load.atlas('pinkHero', pinkP, pinkJ);
     this.load.image('tiles', candyMap);
     this.load.tilemapTiledJSON('tilemap', candyMapJ);
@@ -49,30 +48,33 @@ export default class Game extends Phaser.Scene {
     const ground = map.createLayer('ground', tileSet);
     ground.setCollisionByProperty({ collides: true });
     map.createLayer('obstacles', tileSet);
-    
+
     const objectLayer = map.getObjectLayer('Objects');
     objectLayer.objects.forEach(objData => {
-      const { x = 0, y = 0, name, width = 0, height = 0 } = objData;
-      switch(name) {
+      const {
+        x = 0, y = 0, name, width = 0, height = 0,
+      } = objData;
+      switch (name) {
         case 'HeroSpwam': {
           this.Hero = this.matter.add.sprite(x + (width * 0.5), y, 'pinkHero')
-          .setFixedRotation();
-          
+            .setFixedRotation();
+
           this.playerController = new PlayerController(this, this.Hero, this.cursors, this.obstacles, this.health, this.starsCollected);
           this.cameras.main.startFollow(this.Hero, true);
+          this.cameras.main.setBackgroundColor('rgba(255,250,216,255)');
           break;
         }
         case 'door': {
-          const door = this.matter.add.sprite(x + (width *0.5), y + (height * 0.5), 'door', undefined, { 
+          const door = this.matter.add.sprite(x + (width * 0.5), y + (height * 0.5), 'door', undefined, {
             isStatic: true,
-            isSensor: true
+            isSensor: true,
           });
           door.setData('type', 'door');
           break;
         }
         case 'enemy1': {
           const enemy1 = this.matter.add.sprite(x + (width * 0.5), y, 'enemy1')
-                          .setFixedRotation()
+            .setFixedRotation();
           this.enemy1.push(new Enemy1Controller(this, enemy1));
           this.obstacles.add('enemy1', enemy1.body);
           break;
@@ -80,7 +82,7 @@ export default class Game extends Phaser.Scene {
         case 'star': {
           const star = this.matter.add.sprite(x, y, 'star', undefined, {
             isStatic: true,
-            isSensor: true
+            isSensor: true,
           });
           star.setData('type', 'star');
           break;
@@ -88,7 +90,7 @@ export default class Game extends Phaser.Scene {
         case 'health': {
           const health = this.matter.add.sprite(x, y, 'health', undefined, {
             isStatic: true,
-            isSensor: true
+            isSensor: true,
           });
           health.setData('type', 'health');
           health.setData('healthPoints', 10);
@@ -96,14 +98,14 @@ export default class Game extends Phaser.Scene {
         }
         case 'cream': {
           const cream = this.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
-            isStatic: true
+            isStatic: true,
           });
           this.obstacles.add('cream', cream);
           break;
         }
         case 'cream1': {
           const cream1 = this.matter.add.rectangle(x + (width * 0.5), y + (height * 0.5), width, height, {
-            isStatic: true
+            isStatic: true,
           });
           this.obstacles.add('cream1', cream1);
           break;
@@ -113,13 +115,14 @@ export default class Game extends Phaser.Scene {
 
     this.matter.world.convertTilemapLayer(ground);
   }
+
   destroy() {
     this.scene.stop('ui');
     this.enemy1.forEach(enemy1 => enemy1.destroy());
   }
-  update(t, dt){
 
-    if(this.playerController) {
+  update(t, dt) {
+    if (this.playerController) {
       this.playerController.update(dt);
     }
     this.enemy1.forEach(enemy1 => enemy1.update(dt));

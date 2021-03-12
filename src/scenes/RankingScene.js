@@ -11,11 +11,11 @@ export default class Ranking extends Phaser.Scene {
 
   create() {
     this.add.image(config.width / 2, config.height / 2, 'board').setScale(2);
-    this.add.text(config.width / 2 - 130, config.height / 2 - 280, 'LEADERBOARD', { 
+    this.add.text(config.width / 2 - 130, config.height / 2 - 280, 'LEADERBOARD', {
       color: '#5d1512',
       fontFamily: 'Franklin Gothic Medium',
       fontSize: '40px',
-      fontStyle: 'bolder'
+      fontStyle: 'bolder',
     });
 
     const menuButton = document.getElementById('menu');

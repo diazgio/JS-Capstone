@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Phaser from 'phaser';
 import { shareInstance as events } from './EventCenter';
 
@@ -7,7 +8,7 @@ export default class UI extends Phaser.Scene {
       key: 'ui',
     });
   }
-  
+
   init(data = {}) {
     this.starsCollected = Number(data.stars);
     this.lastHealth = Number(data.health);
@@ -18,22 +19,21 @@ export default class UI extends Phaser.Scene {
     this.graphics = this.add.graphics();
     this.setHealthBar(100);
     this.starsLabel = this.add.text(10, 35, 'Points: 0', {
-      fontSize: '32px'
+      fontSize: '32px',
     });
-    
+
     events.on('star-collected', this.handleStarCollected, this);
     events.on('health-changed', this.handleHealthChanged, this);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       events.off('star-collected', this.handleStarCollected, this);
     });
-    
   }
-  
+
   handleStarCollected(value) {
     this.starsCollected = value;
     this.starsLabel.text = `Points: ${this.starsCollected}`;
   }
-  
+
   setHealthBar(value) {
     const width = 200;
     const percent = Phaser.Math.Clamp(value, 0, 100) / 100;
@@ -53,11 +53,10 @@ export default class UI extends Phaser.Scene {
       duration: 200,
       ease: Phaser.Math.Easing.Sine.InOut,
       onUpdate: tween => {
-          const value = tween.getValue();
-          this.setHealthBar(value);
-      }
+        const value = tween.getValue();
+        this.setHealthBar(value);
+      },
     });
     this.lastHealth = value;
   }
-  
 }

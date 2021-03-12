@@ -4,20 +4,21 @@ import scoreData from '../score/api';
 
 
 export default class InputScene extends Phaser.Scene {
-  constructor () {
+  constructor() {
     super('InputScene');
   }
 
   create() {
     this.add.image(config.width / 2, config.height / 2, 'bg').setDepth(-1);
     const { width, height } = this.scale;
-    this.add.text(width *0.5, height * 0.1, 'Register', {
+    this.add.text(width * 0.5, height * 0.1, 'Register', {
       fontSize: '58px',
       color: '#ff00e5',
       fontFamily: 'Franklin Gothic Medium',
-      fontStyle: 'bolder'
+      fontStyle: 'bolder',
+      backgroundColor: 'white',
     })
-    .setOrigin(0.5);
+      .setOrigin(0.5);
     const element = document.getElementById('name-form');
     element.style.display = 'block';
 
@@ -45,4 +46,4 @@ export default class InputScene extends Phaser.Scene {
       }
     });
   }
-};
+}

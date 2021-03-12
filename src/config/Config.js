@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
- 
+
 export default {
   type: Phaser.AUTO,
   parent: 'phaser-example',
@@ -8,7 +8,7 @@ export default {
   physics: {
     default: 'matter',
     matter: {
-        debug: true
-    }
-  }
+      debug: false,
+    },
+  },
 };

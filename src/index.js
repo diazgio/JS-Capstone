@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import 'regenerator-runtime/runtime';
 import config from './config/Config';
 import BootScene from './scenes/BootScene';
@@ -14,10 +14,10 @@ import UI from './scenes/UI';
 import GameOver from './scenes/GameOver';
 import Ranking from './scenes/RankingScene';
 import Model from './Model';
-import '../src/CSS/style.css';
+import './CSS/style.css';
 
 class FullGame extends Phaser.Game {
-  constructor () {
+  constructor() {
     super(config);
     const model = new Model();
     this.globals = { model, bgMusic: null };
