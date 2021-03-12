@@ -8,6 +8,8 @@ import bg from '../../public/assets/bgtitle.png';
 import board from '../../public/assets/board.png';
 import cursors from '../../public/assets/cursors.png';
 import spacebar from '../../public/assets/spacebar.png';
+import home from '../../public/assets/home.png';
+import home1 from '../../public/assets/home1.jpg';
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
@@ -91,6 +93,8 @@ export default class PreloaderScene extends Phaser.Scene {
     // load assets needed in our game
     this.load.image('pinkButton1', button1);
     this.load.image('pinkButton2', button2);
+    this.load.image('home', home);
+    this.load.image('home1', home1);
     this.load.image('box', box);
     this.load.image('cursors', cursors);
     this.load.image('spacebar', spacebar);

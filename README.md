@@ -5,7 +5,7 @@
 
 > Peque in the World of Sweets is a platform video game like the games of yesteryear, created as part of the Microverse JavaScript capstone.
 
-![screenshot](./public/assets/screenshot.png)
+![screenshot](./public/assets/game.gif)
 
 ## :octocat: Usage
 
@@ -14,6 +14,7 @@
 
 - Javascript ES6
 - Phaser 3 Game Engine
+- Tilemap
 - Extern API
 - Webpack
 - HTML 5
@@ -60,6 +61,11 @@ npm run start
 ```sh
 npm run test
 ```
+
+## :mechanical_arm: Game Design Documentation 
+
+[Peque in The Candy World](https://docs.google.com/document/d/1QkeD2btBIybBJgfa6HrVLh9VTocNjfHD5czIJAsbd4w/edit?usp=sharing)
+
 ## 👤 Authors
 
 - Github: [@diazgio](https://github.com/diazgio)
@@ -88,6 +94,9 @@ Give a ⭐️ if you like this project!
 - GitHub
 - The-Thanatos Team
 - Sanad Abujbara: [@sanadwj](https://github.com/sanadwj)
+- Character Images: [Free Images](https://www.gameartguppy.com/)
+- Map Images: [Free Images](https://kenney.nl/)
+- Sound: [Free Sounds](https://mixkit.co/free-sound-effects/game/)
 
 ## 📝 License
 

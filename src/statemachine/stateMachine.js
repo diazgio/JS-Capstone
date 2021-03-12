@@ -38,8 +38,6 @@ export default class StateMachine {
   }
 
   setState(name) {
-    let a; let
-      b;
     if (!this.states.has(name)) {
       console.warn(`Tried to change to unknown state: ${name}`);
       return;
@@ -52,7 +50,6 @@ export default class StateMachine {
       return;
     }
     this.isChangingState = true;
-    console.log(`[StateMachine (${this.id})] change from ${(b = (a = this.currentState) === null || a === void 0 ? void 0 : a.name) !== null && b !== void 0 ? b : 'none'} to ${name}`);
     if (this.currentState && this.currentState.onExit) {
       this.currentState.onExit();
     }

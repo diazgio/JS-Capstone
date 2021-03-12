@@ -22,7 +22,7 @@ const Board = (function () {
     const board = document.getElementById('score');
     board.style.display = 'grid';
 
-    arr.slice(0, 5).forEach((item, i) => {
+    arr.slice(0, 10).forEach((item, i) => {
       const ranking = document.createElement('span', { class: 'ranking' });
       const name = document.createElement('span', { class: 'name' });
       const score = document.createElement('span', { class: 'score' });

@@ -101,7 +101,7 @@ input[name="back"] {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 20%;
+  top: 10%;
   left: 30%;
   right: 25%;
   width: 40%;
@@ -110,7 +110,7 @@ input[name="back"] {
 
 #score > span {
   width: auto;
-  padding: 8%;
+  padding: 5% 8%;
 }
 
 #menu {

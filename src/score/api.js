@@ -30,8 +30,7 @@ const score = (function () {
       const data = await response.json();
       return data;
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+      throw new Error(error);
     }
   }
 

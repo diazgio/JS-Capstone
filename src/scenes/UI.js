@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import Phaser from 'phaser';
 import { shareInstance as events } from './EventCenter';
+import Button1 from '../objects/Buttons1';
 
 export default class UI extends Phaser.Scene {
   constructor() {
@@ -12,7 +13,6 @@ export default class UI extends Phaser.Scene {
   init(data = {}) {
     this.starsCollected = Number(data.stars);
     this.lastHealth = Number(data.health);
-    console.log(this.lastHealth);
   }
 
   create() {
@@ -21,6 +21,8 @@ export default class UI extends Phaser.Scene {
     this.starsLabel = this.add.text(10, 35, 'Points: 0', {
       fontSize: '32px',
     });
+    //  // Menu
+    this.menuButton = new Button1(this, 50, 100, 'home', 'home1', '', 'LevelOne', 'Title');
 
     events.on('star-collected', this.handleStarCollected, this);
     events.on('health-changed', this.handleHealthChanged, this);
