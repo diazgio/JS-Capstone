@@ -110,12 +110,12 @@ input[name="back"] {
 
 #score > span {
   width: auto;
-  padding: 5% 8%;
+  padding: 3% 8%;
 }
 
 #menu {
   position: absolute;
-  top: 80%;
+  top: 50%;
   left: 49%;
   right: 50%;
   width: 75px;

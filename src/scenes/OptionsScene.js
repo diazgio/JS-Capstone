@@ -10,13 +10,33 @@ export default class OptionsScene extends Phaser.Scene {
   create() {
     this.add.image(config.width / 2, config.height / 2, 'bg').setDepth(-1);
     this.model = this.sys.game.globals.model;
+    const { width, height } = this.scale;
+    this.text = this.add.text(width * 0.4, height * 0.1, 'Options', { 
+      fontSize: '58px',
+      color: '#ff00e5',
+      fontFamily: 'Franklin Gothic Medium',
+      fontStyle: 'bolder',
+      backgroundColor: 'white',
+     });
+    this.musicButton = this.add.image(205, 208, 'checkedBox');
+    this.musicText = this.add.text(250, 190, 'Music Enabled', {
+      fontSize: '24px',
+      color: '#ff00e5',
+      fontFamily: 'Franklin Gothic Medium',
+      fontStyle: 'bolder',
+      backgroundColor: 'white',
+      padding: 5
+    });
 
-    this.text = this.add.text(300, 100, 'Options', { fontSize: 40 });
-    this.musicButton = this.add.image(200, 200, 'checkedBox');
-    this.musicText = this.add.text(250, 190, 'Music Enabled', { fontSize: 24 });
-
-    this.soundButton = this.add.image(200, 300, 'checkedBox');
-    this.soundText = this.add.text(250, 290, 'Sound Enabled', { fontSize: 24 });
+    this.soundButton = this.add.image(205, 308, 'checkedBox');
+    this.soundText = this.add.text(250, 290, 'Sound Enabled', {
+      fontSize: '24px',
+      color: '#ff00e5',
+      fontFamily: 'Franklin Gothic Medium',
+      fontStyle: 'bolder',
+      backgroundColor: 'white',
+      padding: 5
+    });
 
     this.musicButton.setInteractive();
     this.soundButton.setInteractive();
@@ -31,7 +51,7 @@ export default class OptionsScene extends Phaser.Scene {
       this.updateAudio();
     });
 
-    this.menuButton = new Button(this, 400, 500, 'pinkButton1', 'pinkButton2', 'Menu', 'Title');
+    this.menuButton = new Button(this, 460, 500, 'pinkButton1', 'pinkButton2', 'Menu', 'Title');
 
     this.updateAudio();
   }
