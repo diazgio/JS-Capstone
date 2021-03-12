@@ -21,7 +21,7 @@
 
 ## 🔴 Live Demo
 
-[Live Demo](https://diazgio.github.io/Weather-app/)
+[Live Demo](https://sharp-clarke-b3b6a5.netlify.app/)
 
 
 ## 🔧 Getting Started
